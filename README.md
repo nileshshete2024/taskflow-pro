@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # TaskFlow Pro 🚀
 
 A modern, full-featured **Kanban task management app** built with React 19, TypeScript, and Tailwind CSS. Think Trello meets Notion — with drag-and-drop, real-time state management, and a clean, professional UI.
@@ -93,3 +94,7 @@ src/
 ## 📝 License
 
 MIT © Nilesh Shete
+=======
+# taskflow-pro
+TaskFlow Pro — a full-featured Task &amp; Project Management App (think a mini Jira)
+>>>>>>> 696ed5a6c71e4756783d87232e92564f7588b0a4
