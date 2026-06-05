@@ -95,6 +95,7 @@ export const BoardPage = () => {
         onTaskClick={setSelectedTask}
       />
 
+
       {showNewTask && (
         <NewTaskModal
           projectId={project.id}
