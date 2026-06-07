@@ -2,8 +2,12 @@ import { useMemo } from 'react';
 import { useAppStore } from '../store/useAppStore';
 import type { Task, TaskStatus } from '../types';
 
-export const useFilteredTasks = (projectId: string): Record<TaskStatus, Task[]> => {
-  const { tasks, filters } = useAppStore();
+export const useFilteredTasks = (
+  projectId: string,
+  overrideTasks?: Task[]
+): Record<TaskStatus, Task[]> => {
+  const { tasks: storeTasks, filters } = useAppStore();
+  const tasks = overrideTasks ?? storeTasks;
 
   return useMemo(() => {
     let filtered = tasks.filter((t) => t.projectId === projectId);

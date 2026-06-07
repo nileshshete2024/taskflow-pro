@@ -4,6 +4,7 @@ import { useAppStore } from './store/useAppStore';
 import { Sidebar } from './components/UI/Sidebar';
 import { BoardPage } from './pages/BoardPage';
 import { DashboardPage } from './pages/DashboardPage';
+import { NotFoundPage } from './pages/NotFoundPage';
 
 export default function App() {
   const { darkMode } = useAppStore();
@@ -25,6 +26,7 @@ export default function App() {
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/project/:projectId" element={<BoardPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </main>
       </div>

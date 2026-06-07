@@ -19,18 +19,19 @@ import type { Task, TaskStatus } from '../../types';
 
 interface Props {
   projectId: string;
+  optimisticTasks: Task[];
+  onOptimisticMove: (taskId: string, newStatus: TaskStatus) => void;
   onTaskClick: (task: Task) => void;
+  onAddTask: (status: TaskStatus) => void;
 }
 
-export const KanbanBoard = ({ projectId, onTaskClick }: Props) => {
-  const { moveTask, reorderTasks } = useAppStore();
-  const tasksByStatus = useFilteredTasks(projectId);
+export const KanbanBoard = ({ projectId, optimisticTasks, onOptimisticMove, onTaskClick, onAddTask }: Props) => {
+  const { reorderTasks } = useAppStore();
+  const tasksByStatus = useFilteredTasks(projectId, optimisticTasks);
   const [activeTask, setActiveTask] = useState<Task | null>(null);
 
   const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: { distance: 8 },
-    })
+    useSensor(PointerSensor, { activationConstraint: { distance: 8 } })
   );
 
   const handleDragStart = useCallback(
@@ -51,22 +52,20 @@ export const KanbanBoard = ({ projectId, onTaskClick }: Props) => {
 
       const overColumn = STATUSES.includes(overId as TaskStatus);
       if (overColumn) {
-        moveTask(activeId, overId as TaskStatus);
+        onOptimisticMove(activeId, overId as TaskStatus);
         return;
       }
 
       const allTasks = Object.values(tasksByStatus).flat();
       const overTask = allTasks.find((t) => t.id === overId);
-      if (!overTask) return;
-
       const activeTaskItem = allTasks.find((t) => t.id === activeId);
-      if (!activeTaskItem) return;
+      if (!overTask || !activeTaskItem) return;
 
       if (activeTaskItem.status !== overTask.status) {
-        moveTask(activeId, overTask.status);
+        onOptimisticMove(activeId, overTask.status);
       }
     },
-    [tasksByStatus, moveTask]
+    [tasksByStatus, onOptimisticMove]
   );
 
   const handleDragEnd = useCallback(
@@ -79,9 +78,8 @@ export const KanbanBoard = ({ projectId, onTaskClick }: Props) => {
 
       const allTasks = Object.values(tasksByStatus).flat();
       const overTask = allTasks.find((t) => t.id === overId);
-      if (!overTask) return;
       const activeTaskItem = allTasks.find((t) => t.id === activeId);
-      if (!activeTaskItem) return;
+      if (!overTask || !activeTaskItem) return;
 
       if (activeTaskItem.status === overTask.status) {
         reorderTasks(activeId, overId, activeTaskItem.status);
@@ -106,6 +104,7 @@ export const KanbanBoard = ({ projectId, onTaskClick }: Props) => {
               status={status}
               tasks={tasksByStatus[status]}
               onTaskClick={onTaskClick}
+              onAddTask={onAddTask}
             />
           ))}
         </div>

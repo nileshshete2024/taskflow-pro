@@ -1,19 +1,19 @@
 import { useDroppable } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
-
 import { COLUMN_CONFIG } from '../../utils/helpers';
 import { TaskCard } from '../Task/TaskCard';
 import type { Task, TaskStatus } from '../../types';
-import { InboxIcon } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import clsx from 'clsx';
 
 interface Props {
   status: TaskStatus;
   tasks: Task[];
   onTaskClick: (task: Task) => void;
+  onAddTask: (status: TaskStatus) => void;
 }
 
-export const KanbanColumn = ({ status, tasks, onTaskClick }: Props) => {
+export const KanbanColumn = ({ status, tasks, onTaskClick, onAddTask }: Props) => {
   const config = COLUMN_CONFIG[status];
   const { setNodeRef, isOver } = useDroppable({ id: status });
 
@@ -25,9 +25,18 @@ export const KanbanColumn = ({ status, tasks, onTaskClick }: Props) => {
           <span className={clsx('w-2 h-2 rounded-full flex-shrink-0', config.dot)} />
           <span className={clsx('text-sm font-semibold', config.color)}>{config.title}</span>
         </div>
-        <span className={clsx('text-xs font-medium px-2 py-0.5 rounded-full bg-white/60 dark:bg-black/20', config.color)}>
-          {tasks.length}
-        </span>
+        <div className="flex items-center gap-1.5">
+          <span className={clsx('text-xs font-medium px-2 py-0.5 rounded-full bg-white/60 dark:bg-black/20', config.color)}>
+            {tasks.length}
+          </span>
+          <button
+            onClick={() => onAddTask(status)}
+            className="w-5 h-5 rounded flex items-center justify-center text-slate-400 hover:text-primary-600 hover:bg-white/80 dark:hover:bg-black/20 transition-colors"
+            title={`Add task to ${config.title}`}
+          >
+            <Plus className="w-3.5 h-3.5" />
+          </button>
+        </div>
       </div>
 
       {/* Task list */}
@@ -44,10 +53,15 @@ export const KanbanColumn = ({ status, tasks, onTaskClick }: Props) => {
           ))}
 
           {tasks.length === 0 && (
-            <div className="flex flex-col items-center justify-center py-12 text-center">
-              <InboxIcon className="w-8 h-8 text-slate-200 dark:text-slate-700 mb-2" />
-              <p className="text-xs text-slate-400 dark:text-slate-600">Drop tasks here</p>
-            </div>
+            <button
+              onClick={() => onAddTask(status)}
+              className="w-full flex flex-col items-center justify-center py-10 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 hover:border-primary-300 dark:hover:border-primary-700 hover:bg-primary-50/30 dark:hover:bg-primary-900/10 transition-all group"
+            >
+              <Plus className="w-6 h-6 text-slate-300 dark:text-slate-600 group-hover:text-primary-400 transition-colors mb-1" />
+              <p className="text-xs text-slate-400 dark:text-slate-600 group-hover:text-primary-500 transition-colors">
+                Add task
+              </p>
+            </button>
           )}
         </div>
       </SortableContext>
