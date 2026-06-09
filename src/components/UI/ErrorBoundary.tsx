@@ -58,7 +58,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 onClick={() => window.location.assign('/dashboard')}
                 className="btn-secondary"
               >
-                Go to Dashboard
+                Goto Dashboard
               </button>
             </div>
           </div>
