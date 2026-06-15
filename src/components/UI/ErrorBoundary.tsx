@@ -51,7 +51,6 @@ export class ErrorBoundary extends Component<Props, State> {
               <button
                 onClick={this.handleReset}
                 className="btn-primary"
-                
               >
                 Try again
               </button>
