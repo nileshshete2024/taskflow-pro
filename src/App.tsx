@@ -40,7 +40,6 @@ export default function App() {
           >
             <Sidebar />
           </ErrorBoundary>
-
           <main className="flex-1 overflow-hidden flex flex-col">
             <Routes>
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
