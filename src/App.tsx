@@ -32,7 +32,7 @@ export default function App() {
                     className="text-primary-600 underline"
                     onClick={() => window.location.reload()}
                   >
-                    Reload button
+                    Reload
                   </button>
                 </p>
               </div>
