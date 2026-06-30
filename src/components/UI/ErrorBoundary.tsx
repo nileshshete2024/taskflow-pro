@@ -52,7 +52,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 onClick={this.handleReset}
                 className="btn-primary"
               >
-                Try again   
+                Try again
               </button>
               <button
                 onClick={() => window.location.assign('/dashboard')}
