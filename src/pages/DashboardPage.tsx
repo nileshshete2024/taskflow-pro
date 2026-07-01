@@ -182,6 +182,7 @@ export const DashboardPage = () => {
         </div>
       </div>
 
+
       {showNewProject && <NewProjectModal onClose={() => setShowNewProject(false)} />}
     </div>
   );
