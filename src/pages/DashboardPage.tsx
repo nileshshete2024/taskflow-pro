@@ -171,6 +171,7 @@ export const DashboardPage = () => {
                           }`}
                         >
                           {task.status}
+                          
                         </span>
                       </div>
                     </div>
