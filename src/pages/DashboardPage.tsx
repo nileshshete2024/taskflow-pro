@@ -170,7 +170,7 @@ export const DashboardPage = () => {
                               : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400'
                           }`}
                         >
-                          {task.status}
+                          {task.status}   
                         </span>
                       </div>
                     </div>
