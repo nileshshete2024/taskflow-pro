@@ -5,7 +5,6 @@ type ShortcutMap = Record<string, () => void>;
 export const useKeyboardShortcuts = (shortcuts: ShortcutMap) => {
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      // Don't fire when typing in an input/textarea
       const tag = (e.target as HTMLElement).tagName.toLowerCase();
       if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
 
