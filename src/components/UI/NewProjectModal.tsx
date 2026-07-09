@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 import { useAppStore } from '../../store/useAppStore';
 import { PROJECT_COLORS, PROJECT_ICONS } from '../../utils/helpers';
@@ -16,14 +16,39 @@ export const NewProjectModal = ({ onClose }: Props) => {
   const [color, setColor] = useState(PROJECT_COLORS[0]!);
   const [icon, setIcon] = useState(PROJECT_ICONS[0]!);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!name.trim()) return;
-    addProject({ name: name.trim(), description: description.trim(), color, icon });
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        onClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
+  const submitProject = () => {
+    const trimmedName = name.trim();
+    if (!trimmedName) return;
+
+    addProject({ name: trimmedName, description: description.trim(), color, icon });
     const updatedProjects = useAppStore.getState().projects;
     const latest = updatedProjects[updatedProjects.length - 1];
     if (latest) navigate(`/project/${latest.id}`);
     onClose();
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    submitProject();
+  };
+
+  const handleFormKeyDown = (event: React.KeyboardEvent<HTMLFormElement>) => {
+    if ((event.metaKey || event.ctrlKey) && event.key === 'Enter') {
+      event.preventDefault();
+      submitProject();
+    }
   };
 
   return (
@@ -39,7 +64,7 @@ export const NewProjectModal = ({ onClose }: Props) => {
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-5 space-y-4">
+        <form onSubmit={handleSubmit} onKeyDown={handleFormKeyDown} className="p-5 space-y-4">
           <div>
             <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">
               Project name

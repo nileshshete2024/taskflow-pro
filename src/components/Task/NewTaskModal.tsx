@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 import { useAppStore } from '../../store/useAppStore';
 import { ASSIGNEES, PRESET_LABELS } from '../../utils/helpers';
@@ -20,6 +20,32 @@ export const NewTaskModal = ({ projectId, onClose, defaultStatus = 'todo' }: Pro
   const [dueDate, setDueDate] = useState('');
   const [selectedLabels, setSelectedLabels] = useState<Label[]>([]);
 
+  useEffect(() => {
+    setStatus(defaultStatus);
+  }, [defaultStatus]);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        onClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
+  const resetForm = () => {
+    setTitle('');
+    setDescription('');
+    setStatus(defaultStatus);
+    setPriority('medium');
+    setAssignee('');
+    setDueDate('');
+    setSelectedLabels([]);
+  };
+
   const toggleLabel = (label: Label) => {
     setSelectedLabels((prev) =>
       prev.find((l) => l.id === label.id)
@@ -28,11 +54,12 @@ export const NewTaskModal = ({ projectId, onClose, defaultStatus = 'todo' }: Pro
     );
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!title.trim()) return;
+  const submitTask = () => {
+    const trimmedTitle = title.trim();
+    if (!trimmedTitle) return;
+
     addTask({
-      title: title.trim(),
+      title: trimmedTitle,
       description: description.trim(),
       status,
       priority,
@@ -41,7 +68,20 @@ export const NewTaskModal = ({ projectId, onClose, defaultStatus = 'todo' }: Pro
       dueDate: dueDate || undefined,
       projectId,
     });
-    onClose();
+
+    resetForm();
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    submitTask();
+  };
+
+  const handleFormKeyDown = (event: React.KeyboardEvent<HTMLFormElement>) => {
+    if ((event.metaKey || event.ctrlKey) && event.key === 'Enter') {
+      event.preventDefault();
+      submitTask();
+    }
   };
 
   return (
@@ -57,7 +97,7 @@ export const NewTaskModal = ({ projectId, onClose, defaultStatus = 'todo' }: Pro
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-5 space-y-4">
+        <form onSubmit={handleSubmit} onKeyDown={handleFormKeyDown} className="p-5 space-y-4">
           {/* Title */}
           <div>
             <label className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1.5">
