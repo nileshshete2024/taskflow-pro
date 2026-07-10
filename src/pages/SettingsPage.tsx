@@ -21,11 +21,12 @@ export const SettingsPage = () => {
   };
 
   return (
-    <div className="p-8 max-w-2xl mx-auto">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Settings</h1>
-        <p className="text-slate-600 dark:text-slate-400">Manage your preferences and data</p>
-      </div>
+    <div className="h-full overflow-y-auto bg-slate-50 dark:bg-slate-950">
+      <div className="p-8 max-w-2xl mx-auto">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Settings</h1>
+          <p className="text-slate-600 dark:text-slate-400">Manage your preferences and data</p>
+        </div>
 
       {/* Appearance Section */}
       <section className="card p-6 mb-6">
@@ -55,31 +56,39 @@ export const SettingsPage = () => {
 
       {/* Export Section */}
       <section className="card p-6 mb-6">
-        <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+        <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
           <Download className="w-5 h-5" />
           Export Data
         </h2>
-        <div className="space-y-3">
-          <button
-            onClick={handleExportJSON}
-            className="w-full btn btn-primary py-2 text-left flex items-center gap-3"
-          >
-            <Download className="w-4 h-4" />
-            Export as JSON
-          </button>
-          <p className="text-xs text-slate-500 dark:text-slate-400 ml-3">
-            Backup all tasks and projects as a JSON file
-          </p>
-          <button
-            onClick={handleExportCSV}
-            className="w-full btn btn-secondary py-2 text-left flex items-center gap-3 mt-4"
-          >
-            <Download className="w-4 h-4" />
-            Export Tasks as CSV
-          </button>
-          <p className="text-xs text-slate-500 dark:text-slate-400 ml-3">
-            Export tasks in CSV format for spreadsheets
-          </p>
+        <div className="space-y-4">
+          <div>
+            <button
+              onClick={handleExportJSON}
+              className="w-full px-4 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg flex items-center gap-3 transition-colors"
+              type="button"
+              aria-label="Export tasks and projects as JSON backup file"
+            >
+              <Download className="w-4 h-4" />
+              Export as JSON
+            </button>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 ml-1">
+              Backup all tasks and projects as a JSON file
+            </p>
+          </div>
+          <div>
+            <button
+              onClick={handleExportCSV}
+              className="w-full px-4 py-3 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-900 dark:text-white font-medium rounded-lg flex items-center gap-3 transition-colors"
+              type="button"
+              aria-label="Export tasks in CSV format for spreadsheet applications"
+            >
+              <Download className="w-4 h-4" />
+              Export Tasks as CSV
+            </button>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 ml-1">
+              Export tasks in CSV format for spreadsheets
+            </p>
+          </div>
         </div>
       </section>
 
@@ -111,22 +120,25 @@ export const SettingsPage = () => {
       </section>
 
       {/* Danger Zone */}
-      <section className="card p-6 border-red-200 dark:border-red-900">
+      <section className="card p-6 mb-6 border-2 border-red-200 dark:border-red-900/50">
         <h2 className="text-xl font-semibold text-red-600 dark:text-red-400 mb-4 flex items-center gap-2">
           <AlertCircle className="w-5 h-5" />
           Danger Zone
         </h2>
         <button
           onClick={handleResetData}
-          className="w-full btn py-2 text-left flex items-center gap-3 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30"
+          type="button"
+          className="w-full px-4 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg flex items-center gap-3 transition-colors"
+          aria-label="Reset all data to default state - this action cannot be undone"
         >
           <RotateCcw className="w-4 h-4" />
           Reset All Data
         </button>
-        <p className="text-xs text-slate-500 dark:text-slate-400 ml-3 mt-2">
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-3 ml-1">
           This will clear all tasks, projects, and settings. This action cannot be undone.
         </p>
       </section>
+      </div>
     </div>
   );
 };
