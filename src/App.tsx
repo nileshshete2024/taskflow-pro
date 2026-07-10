@@ -10,6 +10,7 @@ import { ErrorBoundary } from './components/UI/ErrorBoundary';
 export default function App() {
   const { darkMode } = useAppStore();
 
+  
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add('dark');
