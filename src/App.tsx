@@ -4,13 +4,14 @@ import { useAppStore } from './store/useAppStore';
 import { Sidebar } from './components/UI/Sidebar';
 import { BoardPage } from './pages/BoardPage';
 import { DashboardPage } from './pages/DashboardPage';
+import { SettingsPage } from './pages/SettingsPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { ErrorBoundary } from './components/UI/ErrorBoundary';
 
 export default function App() {
   const { darkMode } = useAppStore();
 
-  
+
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add('dark');
@@ -59,6 +60,15 @@ export default function App() {
                 element={
                   <ErrorBoundary>
                     <BoardPage />
+                  </ErrorBoundary>
+                }
+              />
+
+              <Route
+                path="/settings"
+                element={
+                  <ErrorBoundary>
+                    <SettingsPage />
                   </ErrorBoundary>
                 }
               />

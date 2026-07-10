@@ -41,6 +41,10 @@ interface AppState {
 
   // UI actions
   toggleDarkMode: () => void;
+
+  // Data management
+  importData: (data: { tasks: Task[]; projects: Project[] }) => void;
+  resetData: () => void;
 }
 
 const defaultFilters: FilterState = {
@@ -237,6 +241,23 @@ export const useAppStore = create<AppState>()(
       resetFilters: () => set({ filters: defaultFilters }),
 
       toggleDarkMode: () => set((state) => ({ darkMode: !state.darkMode })),
+
+      importData: (data) =>
+        set({
+          tasks: data.tasks || [],
+          projects: data.projects || [],
+          activeProjectId: data.projects?.[0]?.id ?? null,
+          filters: defaultFilters,
+        }),
+
+      resetData: () =>
+        set({
+          tasks: SAMPLE_TASKS,
+          projects: SAMPLE_PROJECTS,
+          activeProjectId: SAMPLE_PROJECTS[0]?.id ?? null,
+          filters: defaultFilters,
+          darkMode: false,
+        }),
     }),
     {
       name: 'taskflow-storage',

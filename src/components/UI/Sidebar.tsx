@@ -8,6 +8,7 @@ import {
   Zap,
   Trash2,
   ChevronRight,
+  Settings,
 } from 'lucide-react';
 import { useAppStore } from '../../store/useAppStore';
 import { NewProjectModal } from './NewProjectModal';
@@ -122,7 +123,21 @@ export const Sidebar = () => {
         </nav>
 
         {/* Footer */}
-        <div className="p-3 border-t border-slate-200 dark:border-slate-800">
+        <div className="p-3 border-t border-slate-200 dark:border-slate-800 space-y-1">
+          <NavLink
+            to="/settings"
+            className={({ isActive }) =>
+              clsx(
+                'w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors',
+                isActive
+                  ? 'bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400'
+                  : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
+              )
+            }
+          >
+            <Settings className="w-4 h-4" />
+            Settings
+          </NavLink>
           <button
             onClick={toggleDarkMode}
             className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
