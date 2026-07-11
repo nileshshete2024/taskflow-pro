@@ -1,8 +1,16 @@
 import type { Priority, TaskStatus } from '../types';
 
+/**
+ * Generates a unique ID using random string and timestamp
+ * @returns Unique identifier string
+ */
 export const generateId = (): string =>
   Math.random().toString(36).slice(2) + Date.now().toString(36);
 
+/**
+ * Priority configuration with display labels and styling
+ * Defines visual representation for each priority level
+ */
 export const PRIORITY_CONFIG: Record<
   Priority,
   { label: string; color: string; bg: string; border: string }
@@ -33,6 +41,10 @@ export const PRIORITY_CONFIG: Record<
   },
 };
 
+/**
+ * Task status configuration with display titles and styling
+ * Defines visual representation for each task column/status
+ */
 export const COLUMN_CONFIG: Record<
   TaskStatus,
   { title: string; color: string; bg: string; dot: string }
@@ -63,17 +75,22 @@ export const COLUMN_CONFIG: Record<
   },
 };
 
+/** All valid task statuses in order */
 export const STATUSES: TaskStatus[] = ['todo', 'in-progress', 'review', 'done'];
 
+/** Predefined color palette for projects (hex colors) */
 export const PROJECT_COLORS = [
   '#6366f1', '#8b5cf6', '#ec4899', '#ef4444',
   '#f97316', '#eab308', '#22c55e', '#06b6d4',
 ];
 
+/** Predefined emoji icons for projects */
 export const PROJECT_ICONS = ['📋', '🚀', '🎯', '💡', '🛠️', '📱', '🌐', '📊'];
 
+/** Sample assignee names for tasks */
 export const ASSIGNEES = ['Nilesh', 'Priya', 'Rahul', 'Sneha', 'Amit'];
 
+/** Predefined label presets with colors */
 export const PRESET_LABELS = [
   { id: 'l1', name: 'Bug', color: '#ef4444' },
   { id: 'l2', name: 'Feature', color: '#6366f1' },
@@ -82,13 +99,3 @@ export const PRESET_LABELS = [
   { id: 'l5', name: 'Frontend', color: '#06b6d4' },
   { id: 'l6', name: 'Docs', color: '#22c55e' },
 ];
-
-export const formatDate = (dateStr: string): string => {
-  const date = new Date(dateStr);
-  return date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
-};
-
-export const isOverdue = (dueDate?: string): boolean => {
-  if (!dueDate) return false;
-  return new Date(dueDate) < new Date();
-};

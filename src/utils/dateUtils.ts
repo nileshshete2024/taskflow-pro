@@ -1,5 +1,12 @@
 /**
+ * Date utility functions - Single source of truth for all date operations
+ * Use these utilities across the app instead of custom date logic
+ */
+
+/**
  * Format a date to a readable string (e.g., "Jan 15, 2025")
+ * @param dateString - ISO date string
+ * @returns Formatted date string
  */
 export const formatDate = (dateString: string): string => {
   const date = new Date(dateString);
@@ -12,6 +19,8 @@ export const formatDate = (dateString: string): string => {
 
 /**
  * Format a date to show relative time (e.g., "2 days ago")
+ * @param dateString - ISO date string
+ * @returns Relative time string
  */
 export const formatRelativeTime = (dateString: string): string => {
   const date = new Date(dateString);
@@ -30,6 +39,9 @@ export const formatRelativeTime = (dateString: string): string => {
 
 /**
  * Check if a date is overdue
+ * @param dueDate - ISO date string
+ * @param taskStatus - Task status (returns false if task is done)
+ * @returns True if date is in the past and task is not done
  */
 export const isOverdue = (dueDate: string, taskStatus: string): boolean => {
   if (taskStatus === 'done') return false;
@@ -40,6 +52,8 @@ export const isOverdue = (dueDate: string, taskStatus: string): boolean => {
 
 /**
  * Check if a date is due today
+ * @param dueDate - ISO date string
+ * @returns True if date is today
  */
 export const isDueToday = (dueDate: string): boolean => {
   const due = new Date(dueDate);
@@ -53,6 +67,8 @@ export const isDueToday = (dueDate: string): boolean => {
 
 /**
  * Check if a date is due tomorrow
+ * @param dueDate - ISO date string
+ * @returns True if date is tomorrow
  */
 export const isDueTomorrow = (dueDate: string): boolean => {
   const due = new Date(dueDate);
@@ -66,7 +82,9 @@ export const isDueTomorrow = (dueDate: string): boolean => {
 };
 
 /**
- * Get days until due date
+ * Get the number of days until due date
+ * @param dueDate - ISO date string
+ * @returns Number of days (negative if overdue)
  */
 export const daysUntilDue = (dueDate: string): number => {
   const due = new Date(dueDate);
@@ -76,7 +94,10 @@ export const daysUntilDue = (dueDate: string): number => {
 };
 
 /**
- * Format days until due into a readable string
+ * Format days until due into a human-readable string
+ * @param dueDate - ISO date string
+ * @param taskStatus - Task status
+ * @returns User-friendly deadline string
  */
 export const formatDaysUntilDue = (dueDate: string, taskStatus: string): string => {
   if (taskStatus === 'done') return 'Done';
