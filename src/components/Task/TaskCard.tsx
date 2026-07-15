@@ -1,7 +1,8 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Calendar, MessageSquare, CheckSquare, User } from 'lucide-react';
-import { PRIORITY_CONFIG, formatDate, isOverdue } from '../../utils/helpers';
+import { PRIORITY_CONFIG } from '../../utils/helpers';
+import { formatDate, isOverdue } from '../../utils/dateUtils';
 import type { Task } from '../../types';
 import clsx from 'clsx';
 
@@ -28,7 +29,7 @@ export const TaskCard = ({ task, onTaskClick, isDragging = false }: Props) => {
   };
 
   const completedSubtasks = task.subtasks.filter((s) => s.completed).length;
-  const overdue = isOverdue(task.dueDate) && task.status !== 'done';
+  const overdue = task.dueDate ? isOverdue(task.dueDate, task.status) : false;
   const priorityConfig = PRIORITY_CONFIG[task.priority];
 
   return (

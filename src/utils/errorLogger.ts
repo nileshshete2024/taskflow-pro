@@ -92,10 +92,12 @@ export const errorLogger = {
     try {
       return await Promise.resolve(fn());
     } catch (error) {
-      errorLogger.logError(
-        error instanceof Error ? error : new Error(String(error)),
-        { ...context, action: 'safeExecute' }
-      );
+      const logError =
+        error instanceof Error
+          ? new Error(`${errorMessage}: ${error.message}`)
+          : new Error(`${errorMessage}: ${String(error)}`);
+
+      errorLogger.logError(logError, { ...context, action: 'safeExecute' });
       return null;
     }
   },

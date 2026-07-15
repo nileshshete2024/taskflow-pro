@@ -1,5 +1,8 @@
 import type { Priority, TaskStatus } from '../types';
 
+// Application version identifier (used for diagnostics)
+export const APP_VERSION = '1.0.0';
+
 /**
  * Generates a unique ID using random string and timestamp
  * @returns Unique identifier string

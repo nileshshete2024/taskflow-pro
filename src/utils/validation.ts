@@ -2,7 +2,7 @@
  * Validation utilities for data integrity and type safety
  */
 
-import type { Task, Project, TaskStatus, Priority } from '../types';
+import type { Task, Project } from '../types';
 
 export type ValidationError = {
   field: string;

@@ -43,8 +43,8 @@ export const formatRelativeTime = (dateString: string): string => {
  * @param taskStatus - Task status (returns false if task is done)
  * @returns True if date is in the past and task is not done
  */
-export const isOverdue = (dueDate: string, taskStatus: string): boolean => {
-  if (taskStatus === 'done') return false;
+export const isOverdue = (dueDate?: string, taskStatus?: string): boolean => {
+  if (!dueDate || taskStatus === 'done') return false;
   const due = new Date(dueDate);
   const now = new Date();
   return due < now;

@@ -4,7 +4,8 @@ import {
   Plus, Check, MessageSquare, Edit3, Save, AlertCircle,
 } from 'lucide-react';
 import { useAppStore } from '../../store/useAppStore';
-import { PRIORITY_CONFIG, ASSIGNEES, PRESET_LABELS, formatDate, isOverdue } from '../../utils/helpers';
+import { PRIORITY_CONFIG, ASSIGNEES, PRESET_LABELS } from '../../utils/helpers';
+import { formatDate, isOverdue } from '../../utils/dateUtils';
 import type { Task, Priority, TaskStatus } from '../../types';
 import clsx from 'clsx';
 
@@ -68,7 +69,7 @@ export const TaskDetailModal = ({ task, onClose, onTaskUpdate }: Props) => {
     }
   };
 
-  const overdue = isOverdue(freshTask.dueDate) && freshTask.status !== 'done';
+  const overdue = freshTask.dueDate ? isOverdue(freshTask.dueDate, freshTask.status) : false;
   const completedSubtasks = freshTask.subtasks.filter((s) => s.completed).length;
   const priorityConfig = PRIORITY_CONFIG[freshTask.priority];
 
