@@ -13,13 +13,13 @@ export const useKeyboardShortcuts = (shortcuts: ShortcutMap) => {
         const target = e.target as HTMLElement;
         const tag = target?.tagName?.toLowerCase();
 
-        
+
         // Prevent shortcuts when typing in form elements
         if (tag === 'input' || tag === 'textarea' || tag === 'select') {
           return;
         }
 
-        const key = e.key.toLowerCase();
+        const key = e.key?.toLowerCase() ?? '';
         
         // Check if shortcut exists and execute it safely
         if (key in shortcuts && typeof shortcuts[key] === 'function') {
