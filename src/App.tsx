@@ -1,12 +1,13 @@
-import { useEffect } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useAppStore } from './store/useAppStore';
 import { Sidebar } from './components/UI/Sidebar';
-import { BoardPage } from './pages/BoardPage';
-import { DashboardPage } from './pages/DashboardPage';
-import { SettingsPage } from './pages/SettingsPage';
-import { NotFoundPage } from './pages/NotFoundPage';
 import { ErrorBoundary } from './components/UI/ErrorBoundary';
+
+const DashboardPage = lazy(async () => (await import('./pages/DashboardPage')).then((mod) => ({ default: mod.DashboardPage })));
+const BoardPage = lazy(async () => (await import('./pages/BoardPage')).then((mod) => ({ default: mod.BoardPage })));
+const SettingsPage = lazy(async () => (await import('./pages/SettingsPage')).then((mod) => ({ default: mod.SettingsPage })));
+const NotFoundPage = lazy(async () => (await import('./pages/NotFoundPage')).then((mod) => ({ default: mod.NotFoundPage })));
 
 export default function App() {
   const { darkMode } = useAppStore();
@@ -43,38 +44,46 @@ export default function App() {
             <Sidebar />
           </ErrorBoundary>
           <main className="flex-1 overflow-hidden flex flex-col">
-            <Routes>
-              <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Suspense
+              fallback={
+                <div className="flex-1 flex items-center justify-center bg-slate-50 dark:bg-slate-950">
+                  <p className="text-slate-500 dark:text-slate-400">Loading page…</p>
+                </div>
+              }
+            >
+              <Routes>
+                <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
-              <Route
-                path="/dashboard"
-                element={
-                  <ErrorBoundary>
-                    <DashboardPage />
-                  </ErrorBoundary>
-                }
-              />
+                <Route
+                  path="/dashboard"
+                  element={
+                    <ErrorBoundary>
+                      <DashboardPage />
+                    </ErrorBoundary>
+                  }
+                />
 
-              <Route
-                path="/project/:projectId"
-                element={
-                  <ErrorBoundary>
-                    <BoardPage />
-                  </ErrorBoundary>
-                }
-              />
+                <Route
+                  path="/project/:projectId"
+                  element={
+                    <ErrorBoundary>
+                      <BoardPage />
+                    </ErrorBoundary>
+                  }
+                />
 
-              <Route
-                path="/settings"
-                element={
-                  <ErrorBoundary>
-                    <SettingsPage />
-                  </ErrorBoundary>
-                }
-              />
+                <Route
+                  path="/settings"
+                  element={
+                    <ErrorBoundary>
+                      <SettingsPage />
+                    </ErrorBoundary>
+                  }
+                />
 
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </Suspense>
           </main>
         </div>
       </ErrorBoundary>
