@@ -9,6 +9,12 @@ const BoardPage = lazy(() => import('./pages/BoardPage').then((mod) => ({ defaul
 const SettingsPage = lazy(() => import('./pages/SettingsPage').then((mod) => ({ default: mod.SettingsPage })));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage').then((mod) => ({ default: mod.NotFoundPage })));
 
+const routeLoadingFallback = (
+  <div className="flex-1 flex items-center justify-center bg-slate-50 dark:bg-slate-950" role="status" aria-live="polite">
+    <p className="text-slate-500 dark:text-slate-400">Loading page…</p>
+  </div>
+);
+
 export default function App() {
   const { darkMode } = useAppStore();
 
