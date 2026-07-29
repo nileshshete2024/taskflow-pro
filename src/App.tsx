@@ -15,6 +15,16 @@ const routeLoadingFallback = (
   </div>
 );
 
+const routeErrorFallback = (
+  <div className="flex-1 flex items-center justify-center bg-slate-50 dark:bg-slate-950 p-8">
+    <div className="text-center max-w-sm">
+      <p className="text-3xl mb-4">⚠️</p>
+      <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Something went wrong loading this page.</h2>
+      <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">Refresh or go back to the dashboard to continue.</p>
+    </div>
+  </div>
+);
+
 export default function App() {
   const { darkMode } = useAppStore();
 
@@ -50,20 +60,14 @@ export default function App() {
             <Sidebar />
           </ErrorBoundary>
           <main className="flex-1 overflow-hidden flex flex-col">
-            <Suspense
-              fallback={
-                <div className="flex-1 flex items-center justify-center bg-slate-50 dark:bg-slate-950">
-                  <p className="text-slate-500 dark:text-slate-400">Loading page…</p>
-                </div>
-              }
-            >
+            <Suspense fallback={routeLoadingFallback}>
               <Routes>
                 <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
                 <Route
                   path="/dashboard"
                   element={
-                    <ErrorBoundary>
+                    <ErrorBoundary fallback={routeErrorFallback}>
                       <DashboardPage />
                     </ErrorBoundary>
                   }
@@ -72,7 +76,7 @@ export default function App() {
                 <Route
                   path="/project/:projectId"
                   element={
-                    <ErrorBoundary>
+                    <ErrorBoundary fallback={routeErrorFallback}>
                       <BoardPage />
                     </ErrorBoundary>
                   }
@@ -81,13 +85,20 @@ export default function App() {
                 <Route
                   path="/settings"
                   element={
-                    <ErrorBoundary>
+                    <ErrorBoundary fallback={routeErrorFallback}>
                       <SettingsPage />
                     </ErrorBoundary>
                   }
                 />
 
-                <Route path="*" element={<NotFoundPage />} />
+                <Route
+                  path="*"
+                  element={
+                    <ErrorBoundary fallback={routeErrorFallback}>
+                      <NotFoundPage />
+                    </ErrorBoundary>
+                  }
+                />
               </Routes>
             </Suspense>
           </main>
