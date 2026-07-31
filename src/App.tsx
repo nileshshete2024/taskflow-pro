@@ -59,7 +59,7 @@ export default function App() {
           >
             <Sidebar />
           </ErrorBoundary>
-          <main className="flex-1 overflow-hidden flex flex-col">
+          <main className="flex-1 overflow-hidden flex flex-col" aria-label="Taskflow workspace">
             <Suspense fallback={routeLoadingFallback}>
               <Routes>
                 <Route path="/" element={<Navigate to="/dashboard" replace />} />
