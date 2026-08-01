@@ -2,6 +2,13 @@
   "name": "taskflow-pro",
   "private": true,
   "version": "1.0.0",
+  "description": "A modern Kanban-style task and project management app built with React and TypeScript.",
+  "homepage": "https://github.com/nileshshete2024/taskflow-pro",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nileshshete2024/taskflow-pro.git"
+  },
+  "keywords": ["kanban", "project-management", "react", "typescript"],
   "type": "module",
   "scripts": {
     "dev": "vite",
