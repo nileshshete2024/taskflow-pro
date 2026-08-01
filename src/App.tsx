@@ -11,7 +11,7 @@ const NotFoundPage = lazy(() => import('./pages/NotFoundPage').then((mod) => ({ 
 
 const routeLoadingFallback = (
   <div className="flex-1 flex items-center justify-center bg-slate-50 dark:bg-slate-950" role="status" aria-live="polite">
-    <p className="text-slate-500 dark:text-slate-400">Loading Taskflow…</p>
+    <p className="text-slate-500 dark:text-slate-400">Loading TaskFlow Pro…</p>
   </div>
 );
 
