@@ -20,10 +20,15 @@ TaskFlow Pro is a modern Kanban-style task management app built with React, Type
 - React Router
 - @dnd-kit
 
-## 🚀 Getting Started
+## � Install
 
 ```bash
 npm install
+```
+
+## 🚀 Development
+
+```bash
 npm run dev
 ```
 
