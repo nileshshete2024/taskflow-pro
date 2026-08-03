@@ -97,9 +97,10 @@ export const DashboardPage = () => {
       </div>
 
       {/* Summary stats */}
-      <div className="grid grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-4 mb-8">
         {[
           { label: 'Total tasks', value: totalTasks, icon: LayoutGrid, color: 'text-primary-600', bg: 'bg-primary-50 dark:bg-primary-900/30' },
+          { label: 'Projects', value: projects.length, icon: LayoutGrid, color: 'text-violet-600', bg: 'bg-violet-50 dark:bg-violet-900/30' },
           { label: 'Completed', value: doneTasks, icon: CheckCircle2, color: 'text-emerald-600', bg: 'bg-emerald-50 dark:bg-emerald-900/30' },
           { label: 'In progress', value: inProgressTasks, icon: Clock, color: 'text-blue-600', bg: 'bg-blue-50 dark:bg-blue-900/30' },
           { label: 'Overdue', value: overdueTasks, icon: AlertTriangle, color: 'text-red-600', bg: 'bg-red-50 dark:bg-red-900/30' },
