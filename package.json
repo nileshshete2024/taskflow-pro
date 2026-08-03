@@ -3,6 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "description": "A modern Kanban-style task and project management app built with React and TypeScript.",
+  "author": "Nilesh Shete",
   "homepage": "https://github.com/nileshshete2024/taskflow-pro",
   "repository": {
     "type": "git",
