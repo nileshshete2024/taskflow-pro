@@ -42,3 +42,5 @@ npm run build
 
 MIT © Nilesh Shete
 
+Chore: small update added by assistant to create a commit.
+
