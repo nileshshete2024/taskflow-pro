@@ -47,6 +47,12 @@ export const validateTask = (
 };
 
 /**
+ * Checks whether the provided value is a valid six-character hex color.
+ */
+export const isValidHexColor = (color?: string): boolean =>
+  typeof color === 'string' && /^#[0-9A-Fa-f]{6}$/.test(color);
+
+/**
  * Validates project data before creation
  */
 export const validateProject = (
@@ -64,7 +70,7 @@ export const validateProject = (
     errors.push({ field: 'description', message: 'Description must be 500 characters or less' });
   }
 
-  if (!project.color || !/^#[0-9A-Fa-f]{6}$/.test(project.color)) {
+  if (!isValidHexColor(project.color)) {
     errors.push({ field: 'color', message: 'Invalid color format (must be hex color)' });
   }
 
