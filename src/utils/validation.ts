@@ -4,10 +4,19 @@
 
 import type { Task, Project } from '../types';
 
+export const VALID_TASK_STATUSES = ['todo', 'in-progress', 'review', 'done'] as const;
+export const VALID_TASK_PRIORITIES = ['low', 'medium', 'high', 'urgent'] as const;
+
 export type ValidationError = {
   field: string;
   message: string;
 };
+
+export const isValidTaskStatus = (status?: string): boolean =>
+  typeof status === 'string' && VALID_TASK_STATUSES.includes(status as (typeof VALID_TASK_STATUSES)[number]);
+
+export const isValidTaskPriority = (priority?: string): boolean =>
+  typeof priority === 'string' && VALID_TASK_PRIORITIES.includes(priority as (typeof VALID_TASK_PRIORITIES)[number]);
 
 /**
  * Validates task data before creation or update
@@ -27,11 +36,11 @@ export const validateTask = (
     errors.push({ field: 'projectId', message: 'Project ID is required' });
   }
 
-  if (!task.status || !['todo', 'in-progress', 'review', 'done'].includes(task.status)) {
+  if (!isValidTaskStatus(task.status)) {
     errors.push({ field: 'status', message: 'Invalid task status' });
   }
 
-  if (!task.priority || !['low', 'medium', 'high', 'urgent'].includes(task.priority)) {
+  if (!isValidTaskPriority(task.priority)) {
     errors.push({ field: 'priority', message: 'Invalid task priority' });
   }
 
