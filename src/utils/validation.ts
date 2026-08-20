@@ -12,6 +12,8 @@ export type ValidationError = {
   message: string;
 };
 
+export const hasValidationErrors = (errors: ValidationError[]): boolean => errors.length > 0;
+
 export const isValidTaskStatus = (status?: string): boolean =>
   typeof status === 'string' && VALID_TASK_STATUSES.includes(status as (typeof VALID_TASK_STATUSES)[number]);
 
