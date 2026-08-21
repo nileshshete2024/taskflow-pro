@@ -8,6 +8,7 @@ interface Props {
   onClose: () => void;
 }
 
+
 export const NewProjectModal = ({ onClose }: Props) => {
   const { addProject } = useAppStore();
   const navigate = useNavigate();
