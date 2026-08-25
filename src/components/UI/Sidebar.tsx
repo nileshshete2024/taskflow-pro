@@ -14,8 +14,6 @@ import { useAppStore } from '../../store/useAppStore';
 import { NewProjectModal } from './NewProjectModal';
 import clsx from 'clsx';
 
-
-
 export const Sidebar = () => {
   const { projects, darkMode, toggleDarkMode, deleteProject, activeProjectId, setActiveProject } =
     useAppStore();
