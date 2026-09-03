@@ -140,7 +140,7 @@ export const useAppStore = create<AppState>()(
           const overIdx = columnTasks.findIndex((t) => t.id === overId);
           if (activeIdx === -1 || overIdx === -1) return state;
 
-          
+
           const reordered = [...columnTasks];
           const [removed] = reordered.splice(activeIdx, 1);
           reordered.splice(overIdx, 0, removed);
@@ -149,6 +149,8 @@ export const useAppStore = create<AppState>()(
           return { tasks: [...otherTasks, ...reordered] };
         }),
 
+
+        
       addSubtask: (taskId, title) =>
         set((state) => ({
           tasks: state.tasks.map((t) =>
