@@ -149,8 +149,6 @@ export const useAppStore = create<AppState>()(
           return { tasks: [...otherTasks, ...reordered] };
         }),
 
-
-        
       addSubtask: (taskId, title) =>
         set((state) => ({
           tasks: state.tasks.map((t) =>
